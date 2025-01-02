@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Relief Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        #gameArea {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background-color: #87CEEB;
+            border: 2px solid #000;
+            overflow: hidden;
+        }
+        #ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ff5733, #c70039);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .collision {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('https://i.imgur.com/3sK3w1v.png') no-repeat center center;
+            background-size: contain;
+            pointer-events: none;
+            animation: explode 0.5s ease-out;
+        }
+        @keyframes explode {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        #collisionSound {
+            display: none;
+        }
+        #speedControl {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameArea">
+        <div id="ball"></div>
+    </div>
+    <input type="range" id="speedControl" min="1" max="100" value="50">
+    <label for="speedControl">Speed: <span id="speedValue">50</span>%</label>
+    <video id="collisionSound" src="balbb.mp4" preload="auto"></video>
+
+    <script>
+        const minSpeed = 1; // Minimum speed value
+        const maxSpeed = 100; // Maximum speed value at 100%
+        const defaultSpeed = 50; // Default speed percentage
+
+        const ball = document.getElementById('ball');
+        const gameArea = document.getElementById('gameArea');
+        const collisionSound = document.getElementById('collisionSound');
+        const speedControl = document.getElementById('speedControl');
+        const speedValue = document.getElementById('speedValue');
+        let ballX = Math.random() * (gameArea.clientWidth - ball.clientWidth);
+        let ballY = Math.random() * (gameArea.clientHeight - ball.clientHeight);
+        let ballSpeedX = (Math.random() - 0.5) * maxSpeed;
+        let ballSpeedY = (Math.random() - 0.5) * maxSpeed;
+        let speedMultiplier = defaultSpeed / 100;
+
+        // Set the initial speed value
+        speedControl.value = defaultSpeed;
+        speedValue.textContent = defaultSpeed;
+
+        speedControl.addEventListener('input', () => {
+            speedMultiplier = speedControl.value / 100;
+            speedValue.textContent = speedControl.value;
+        });
+
+        function moveBall() {
+            ballX += ballSpeedX * speedMultiplier;
+            ballY += ballSpeedY * speedMultiplier;
+
+            if (ballX <= 0 || ballX >= gameArea.clientWidth - ball.clientWidth) {
+                ballSpeedX *= -1;
+                playCollisionEffect(ballX, ballY);
+            }
+            if (ballY <= 0 || ballY >= gameArea.clientHeight - ball.clientHeight) {
+                ballSpeedY *= -1;
+                playCollisionEffect(ballX, ballY);
+            }
+
+            ball.style.left = ballX + 'px';
+            ball.style.top = ballY + 'px';
+
+            requestAnimationFrame(moveBall);
+        }
+
+        function playCollisionEffect(x, y) {
+            collisionSound.currentTime = 0;
+            collisionSound.play();
+            const collision = document.createElement('div');
+            collision.classList.add('collision');
+            collision.style.left = x + 'px';
+            collision.style.top = y + 'px';
+            gameArea.appendChild(collision);
+            setTimeout(() => {
+                collision.remove();
+            }, 500);
+        }
+
+        moveBall();
+    </script>
+</body>
+</html>
