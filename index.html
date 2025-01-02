@@ -12,7 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #b0f83c;
             overflow: hidden;
             flex-direction: column;
         }
@@ -20,8 +20,8 @@
             position: relative;
             width: 800px;
             height: 600px;
-            background-color: #87CEEB;
-            border: 2px solid #000;
+            background-color: #ffffff;
+            border: 6px solid #000;
             overflow: hidden;
         }
         #ball {
@@ -30,13 +30,13 @@
             height: 50px;
             background: radial-gradient(circle, #ff5733, #c70039);
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(130, 64, 216, 0.5);
         }
         .collision {
             position: absolute;
             width: 50px;
             height: 50px;
-            background: url('https://i.imgur.com/3sK3w1v.png') no-repeat center center;
+            background: url('https://th.bing.com/th/id/OIP.V6G7NCiFDWCb94R0TxP-kgHaHa?rs=1&pid=ImgDetMain') no-repeat center center;
             background-size: contain;
             pointer-events: none;
             animation: explode 0.5s ease-out;
@@ -65,7 +65,7 @@
     </div>
     <input type="range" id="speedControl" min="1" max="100" value="50">
     <label for="speedControl">Speed: <span id="speedValue">50</span>%</label>
-    <video id="collisionSound" src="balbb.mp4" preload="auto"></video>
+    <video id="collisionSound" src="collide.mp4" preload="auto"></video>
 
     <script>
         const minSpeed = 1; // Minimum speed value
