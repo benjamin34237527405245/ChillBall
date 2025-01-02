@@ -1,0 +1,13 @@
+{
+    "name": "ChillBall : Stress Relief",
+    "short_name": "ChillBall",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#6200ea",
+    "icons": [
+        {
+            
+        }
+    ]
+}
