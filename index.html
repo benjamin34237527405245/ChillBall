@@ -14,15 +14,17 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #b0f83c;
+            background-color: #936fef;
             overflow: hidden;
             flex-direction: column;
         }
         #gameArea {
             position: relative;
-            width: 800px;
-            height: 600px;
-            background-color: #ffffff;
+            width: 90vw; /* Adjust width for mobile screens */
+            height: 70vh; /* Adjust height for mobile screens */
+            max-width: 800px; /* Maintain max width for larger screens */
+            max-height: 600px; /* Maintain max height for larger screens */
+            background-color: #ff9100;
             border: 6px solid #000;
             overflow: hidden;
         }
@@ -33,15 +35,17 @@
             background: radial-gradient(circle, #ff5733, #c70039);
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(130, 64, 216, 0.5);
+            z-index: 2; /* Ensure ball is above collision effect */
         }
         .collision {
             position: absolute;
             width: 50px;
             height: 50px;
-            background: url('https://th.bing.com/th/id/OIP.V6G7NCiFDWCb94R0TxP-kgHaHa?rs=1&pid=ImgDetMain') no-repeat center center;
+            background: url('colfire.png') no-repeat center center;
             background-size: contain;
             pointer-events: none;
             animation: explode 0.5s ease-out;
+            z-index: 1; /* Ensure collision effect is below the ball */
         }
         @keyframes explode {
             from {
